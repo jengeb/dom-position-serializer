@@ -1,0 +1,26 @@
+{
+  "name": "dom-position-serializer",
+  "version": "1.0.0",
+  "description": "serialize and deserialize a position in the DOM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jengeb/dom-position-serializer.git"
+  },
+  "keywords": [
+    "dom",
+    "serialize",
+    "browser",
+    "position",
+    "skip"
+  ],
+  "author": "Jennifer Gebske <jennifer@gebske.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jengeb/dom-position-serializer/issues"
+  },
+  "homepage": "https://github.com/jengeb/dom-position-serializer#readme"
+}
