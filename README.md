@@ -1,0 +1,1 @@
+# DOM position serializer [![Build Status](https://travis-ci.org/jengeb/dom-position-serializer.svg)](https://travis-ci.org/jengeb/dom-position-serializer)
