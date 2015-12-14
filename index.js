@@ -1,9 +1,12 @@
+'use strict';
+
 function serializePosition(node, offset, rootNode, className) {
 
   function skip(node, offset) {
     // count offset
-    while (node.previousSibling &&
-           (getType(node.previousSibling) === 'text') ||
+    while ((getType(node) === 'text' || getType(node) === 'inserted') &&
+           node.previousSibling &&
+           (getType(node.previousSibling) === 'text' ||
             getType(node.previousSibling) === 'inserted')
            ) {
       node = node.previousSibling;
@@ -34,8 +37,10 @@ function serializePosition(node, offset, rootNode, className) {
   offset = skipResult.offset;
 
   // result node: TODO path to rootnode
+  var path = [];
   while (node && node != rootNode) { // walk upwards in tree
     var count = 0;
+
     while (node.previousSibling) { // count vanilla siblings
       node = node.previousSibling;
       count++;
@@ -43,8 +48,9 @@ function serializePosition(node, offset, rootNode, className) {
       skipResult = skip(node);
       node = skipResult.node;
     }
-    node = node.parent;
+    path.push(count);
+    node = node.parentNode;
   }
 
-  console.log(node, offset);
+  return {path: path, offset: offset};
 }
