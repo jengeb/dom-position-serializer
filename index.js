@@ -58,21 +58,26 @@ function serializePosition(node, offset, rootNode, className) {
 
 function deserializePosition(position, rootNode, className) {
 
+  function getNodeLength(node) {
+    if (getType(node) === 'text') {
+      return node.length;
+    }
+    else if (getType(node) === 'inserted') {
+      return node.innerText.length;
+    }
+  }
+
   function skip(node, offset) {
     // count offset
     while ((getType(node) === 'text' || getType(node) === 'inserted') &&
            node.nextSibling &&
            (getType(node.nextSibling) === 'text' ||
-            getType(node.nextSibling) === 'inserted')
-           ) {
+            getType(node.nextSibling) === 'inserted') &&
+           offset === undefined || offset >= getNodeLength(node)
+          ) {
       node = node.nextSibling;
       if (offset !== undefined) {
-        if (getType(node) === 'text') {
-          offset += node.length;
-        }
-        else if (getType(node) === 'inserted') {
-          offset += node.innerText.length;
-        }
+        offset -= getNodeLength(node);
       }
     }
     return {node: node, offset: offset};
@@ -88,22 +93,27 @@ function deserializePosition(position, rootNode, className) {
   }
 
   var path = position.path;
-  var skipResult = skip(rootNode, position.offset);
-  var node = skipResult.node;
-  var offset = skipResult.offset;
+  var node = rootNode;
 
   for (var i = 0; i < path.length; i++) {
     node = node.firstChild;
-    skipResult = skip(node);
-    node = skipResult.node;
+    // skipResult = skip(node);
+    // node = skipResult.node;
     var stepsRight = path[i];
     while (stepsRight > 0) {
+      node = node.nextSibling;
       skipResult = skip(node);
       node = skipResult.node;
-      node = node.nextSibling;
       stepsRight--;
     }
   }
+  var skipResult = skip(node, position.offset);
+  var node = skipResult.node;
+  var offset = skipResult.offset;
 
-  return {node: node};
+  if (getType(node) === 'inserted') {
+    node = node.firstChild;
+  }
+
+  return {node: node, offset: offset};
 }
