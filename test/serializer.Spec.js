@@ -3,6 +3,7 @@ beforeEach(function() {
   $('body').append('<div id="testContainer"></div>');
 });
 
+// serializePosition()
 describe('serializePosition()', function() {
   it('should serialize a position', function() {
     $('#testContainer').append('<div id="root"><h1>Title</h1><div></div><div id="target"><p></p><div><p id="test">Test<em>123</em></p></div></div></div>');
@@ -17,6 +18,7 @@ describe('serializePosition()', function() {
   });
 });
 
+// deserializePosition()
 describe('deserializePosition()', function() {
   it('should deserialize a position', function() {
     $('#testContainer').append('<div id="root"><h1>Title</h1><h2>myTest</h2><div><h1 id="target">My Test</h1></div></div>');
@@ -34,5 +36,15 @@ describe('deserializePosition()', function() {
     var result = deserializePosition(element, $('#root')[0], 'myClass');
     expect(result.node).to.equal($('#target')[0].firstChild.firstChild);
     expect(result.node.textContent).to.equal('My');
+  })
+});
+
+describe('deserializePosition()', function() {
+  it('should deserialize a position and skip myClass elements in another html tree', function() {
+    $('#testContainer').append('<div id="root"><h1>Title</h1><h2>myTest</h2><ul><li>Lorem ipsum1</li><li>Lorem<em id="list"><span class="myClass">ipsum</span></em>lorem ipsum1B</li><li>Lorem ipsum2</li></ul><div><h1 id="target"><span class="myClass">My</span>Test</h1></div></div>');
+    var element = {path: [2, 1, 1, 0], offset: 0};
+    var result = deserializePosition(element, $('#root')[0], 'myClass');
+    expect(result.node).to.equal($('#list')[0].firstChild.firstChild);
+    expect(result.node.textContent).to.equal('ipsum');
   })
 });
