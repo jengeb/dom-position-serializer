@@ -52,5 +52,22 @@ function serializePosition(node, offset, rootNode, className) {
     node = node.parentNode;
   }
 
-  return {path: path, offset: offset};
+  return {path: path.reverse(), offset: offset};
+}
+
+
+function deserializePosition(position, rootNode, className) {
+  var path = position.path;
+  var node = rootNode;
+
+  for (var i = 0; i < path.length; i++) {
+    node = node.firstChild;
+    var stepsRight = path[i];
+    while (stepsRight > 0) {
+      node = node.nextSibling;
+      stepsRight--;
+    }
+  }
+
+  return {node: node};
 }
