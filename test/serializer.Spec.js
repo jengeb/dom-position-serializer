@@ -5,11 +5,17 @@ beforeEach(function() {
 
 describe('serializePosition()', function() {
   it('should serialize a position', function() {
-    $('#testContainer').append('<div id="root"><h1>Title</h1><div></div><div id="target"></div></div>');
+    $('#testContainer').append('<div id="root"><h1>Title</h1><div></div><div id="target"><p></p><div><p id="test">Test<em>123</em></p></div></div></div>');
     var position = serializePosition($('#target')[0], 5, $('#root')[0], 'myClass');
     console.log(position);
     expect(position.path).to.deep.equal([2]);
     expect(position.offset).to.equal(5);
+
+    // expect 123
+    var newPosition = serializePosition($('#test')[0].firstChild.nextSibling.firstChild, 3, $('#root')[0], 'myClass');
+    console.log(newPosition);
+    expect(newPosition.path).to.deep.equal([2, 1, 0, 1, 0]);
+    expect(newPosition.offset).to.equal(3);
   });
 });
 
