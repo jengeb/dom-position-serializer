@@ -57,13 +57,49 @@ function serializePosition(node, offset, rootNode, className) {
 
 
 function deserializePosition(position, rootNode, className) {
+
+  function skip(node, offset) {
+    // count offset
+    while ((getType(node) === 'text' || getType(node) === 'inserted') &&
+           node.nextSibling &&
+           (getType(node.nextSibling) === 'text' ||
+            getType(node.nextSibling) === 'inserted')
+           ) {
+      node = node.nextSibling;
+      if (offset !== undefined) {
+        if (getType(node) === 'text') {
+          offset += node.length;
+        }
+        else if (getType(node) === 'inserted') {
+          offset += node.innerText.length;
+        }
+      }
+    }
+    return {node: node, offset: offset};
+  }
+
+  function getType(node) {
+    if (node.nodeType === node.TEXT_NODE) {
+      return 'text';
+    }
+    if ($(node).hasClass(className)) {
+      return 'inserted';
+    }
+  }
+
   var path = position.path;
-  var node = rootNode;
+  var skipResult = skip(rootNode, position.offset);
+  var node = skipResult.node;
+  var offset = skipResult.offset;
 
   for (var i = 0; i < path.length; i++) {
     node = node.firstChild;
+    skipResult = skip(node);
+    node = skipResult.node;
     var stepsRight = path[i];
     while (stepsRight > 0) {
+      skipResult = skip(node);
+      node = skipResult.node;
       node = node.nextSibling;
       stepsRight--;
     }

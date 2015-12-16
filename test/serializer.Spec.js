@@ -18,13 +18,24 @@ describe('serializePosition()', function() {
     expect(newPosition.offset).to.equal(3);
   });
 });
-
+/*
 describe('deserializePosition()', function() {
   it('should deserialize a position', function() {
     $('#testContainer').append('<div id="root"><h1>Title</h1><h2>myTest</h2><div><h1 id="target">Test</h1></div></div>');
     var element = {path: [2, 0, 0], offset: 0};
     var result = deserializePosition(element, $('#root')[0], 'myClass');
     expect(result.node).to.equal($('#target')[0].firstChild);
+    expect(result.node.textContent).to.equal('Test');
+  })
+});
+*/
+describe('deserializePosition()', function() {
+  it('should deserialize a position and skip myClass elements', function() {
+    $('#testContainer').append('<div id="root"><h1>Title</h1><h2>myTest</h2><div><h1 id="target"><span class="myClass">My</span>Test</h1></div></div>');
+    var element = {path: [2, 0, 0], offset: 0};
+    var result = deserializePosition(element, $('#root')[0], 'myClass');
+    // expect 'Test'
+    expect(result.node).to.equal($('#target')[0].firstChild.nextSibling);
     expect(result.node.textContent).to.equal('Test');
   })
 });
