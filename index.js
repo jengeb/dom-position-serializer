@@ -77,7 +77,7 @@ function deserializePosition(position, rootNode, className) {
            node.nextSibling &&
            (getType(node.nextSibling) === 'text' ||
             getType(node.nextSibling) === 'inserted') &&
-           offset === undefined || offset >= getNodeLength(node)
+           (offset === undefined || offset >= getNodeLength(node))
           ) {
       node = node.nextSibling;
       if (offset !== undefined) {
@@ -101,8 +101,6 @@ function deserializePosition(position, rootNode, className) {
 
   for (var i = 0; i < path.length; i++) {
     node = node.firstChild;
-    // skipResult = skip(node);
-    // node = skipResult.node;
     var stepsRight = path[i];
     while (stepsRight > 0) {
       node = node.nextSibling;
