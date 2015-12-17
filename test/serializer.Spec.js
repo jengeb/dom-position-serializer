@@ -97,3 +97,16 @@ describe('deserializePosition()', function() {
     expect(result.node.textContent).to.equal('exa');
   })
 });
+
+
+
+describe('deserializePosition()', function() {
+  it('should deserialize a position: case 4: span in the middle', function() {
+    $('#testContainer').append('<div id="root"><div><span class="myClass">Test</span></div><h1 id="target"><span class="myClass">Example</span></h1></div>');
+    var element = {path: [1, 0], offset: 0};
+    var result = deserializePosition(element, $('#root')[0], 'myClass');
+    expect(result.node).to.equal($('#target')[0].firstChild);
+    expect(result.node.textContent).to.equal('Example');
+  })
+});
+
