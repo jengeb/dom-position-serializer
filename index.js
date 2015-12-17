@@ -31,6 +31,10 @@ function serializePosition(node, offset, rootNode, className) {
     }
   }
 
+  if (getType(node.parentNode) === 'inserted') {
+    node = node.parentNode;
+  }
+
   // count offset
   var skipResult = skip(node, offset);
   node = skipResult.node;
@@ -113,6 +117,9 @@ function deserializePosition(position, rootNode, className) {
 
   if (getType(node) === 'inserted') {
     node = node.firstChild;
+  }
+  if (getType(node) !== 'text') {
+    throw new Error('Found node is not a text node.');
   }
 
   return {node: node, offset: offset};
