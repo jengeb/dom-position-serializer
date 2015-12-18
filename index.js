@@ -31,6 +31,10 @@ function serializePosition(node, offset, rootNode, className) {
     }
   }
 
+  if (getType(node) !== 'text') {
+    throw new Error('Input node is not a text node.');
+  }
+
   if (getType(node.parentNode) === 'inserted') {
     node = node.parentNode;
   }

@@ -13,11 +13,13 @@ describe('serializePosition()', function() {
           'Title' +
         '</h1>' +
         '<div></div>' +
-        '<div id="target">' +
+        '<div>' +
           '<p></p>' +
           '<div>' +
-            '<p id="test">' +
-              'Test' +
+            '<p id="target">' +
+              '<span class="myClass">' +
+                'Test' +
+              '</span>' +
               '<em>' +
                 '123' +
               '</em>' +
@@ -27,9 +29,9 @@ describe('serializePosition()', function() {
       '</div>'
     );
 
-    var position = serializePosition($('#target')[0], 5, $('#root')[0], 'myClass');
-    expect(position.path).to.deep.equal([2]);
-    expect(position.offset).to.equal(5);
+    var position = serializePosition($('#target')[0].firstChild.firstChild, 0, $('#root')[0], 'myClass');
+    expect(position.path).to.deep.equal([2, 1, 0, 0]);
+    expect(position.offset).to.equal(0);
   });
 });
 
@@ -406,9 +408,9 @@ describe('serializePosition() and deserializePosition() (position is not a textn
       '</div>'
     );
 
-    var position = serializePosition($('#target')[0], 0, $('#root')[0], 'myClass');
+    expect(function(){serializePosition($('#target')[0], 0, $('#root')[0], 'myClass')}).to.throw('Input node is not a text node.');
 
     // http://stackoverflow.com/a/22340179/4419582
-    expect(function(){deserializePosition(position, $('#root')[0], 'myClass')}).to.throw('Found node is not a text node.');
+    //expect(function(){deserializePosition(position, $('#root')[0], 'myClass')}).to.throw('Found node is not a text node.');
   });
 });
