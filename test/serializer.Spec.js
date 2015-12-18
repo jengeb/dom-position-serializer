@@ -408,7 +408,7 @@ describe('serializePosition() and deserializePosition() (position is not a textn
 
     var position = serializePosition($('#target')[0], 0, $('#root')[0], 'myClass');
 
-    // http://stackoverflow.com/a/21587239/4419582
+    // http://stackoverflow.com/a/22340179/4419582
     expect(function(){deserializePosition(position, $('#root')[0], 'myClass')}).to.throw('Found node is not a text node.');
   });
 });
