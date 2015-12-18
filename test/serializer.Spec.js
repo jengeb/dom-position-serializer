@@ -390,9 +390,8 @@ describe('serializePosition() and deserializePosition()', function() {
 });
 
 
-// expect(foo).to.be.a('string');
-describe('serializePosition() and deserializePosition()', function() {
-  it('should de-/serialize a position: throw error if not ending in a textnode', function() {
+describe('serializePosition() and deserializePosition() (position is not a textnode)', function() {
+  it('should serialize a position and deserialization should throw an error because it is not ending in a textnode', function() {
     $('#testContainer').append(
       '<div id="root">' +
         '<div></div>' +
@@ -400,14 +399,16 @@ describe('serializePosition() and deserializePosition()', function() {
         '<div>' +
           '<h1 id="target">' +
             '<span class="myClass">' +
-              'Text'
+              'Text' +
             '</span>' +
           '</h1>' +
         '</div>' +
       '</div>'
     );
 
-    console.log($('#target')[0]);
+    var position = serializePosition($('#target')[0], 0, $('#root')[0], 'myClass');
 
+    // http://stackoverflow.com/a/21587239/4419582
+    expect(deserializePosition.bind(deserializePosition, position, $('#root')[0], 'myClass')).to.throw('Found node is not a text node.');
   });
 });
