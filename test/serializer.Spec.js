@@ -388,3 +388,26 @@ describe('serializePosition() and deserializePosition()', function() {
     expect(result.node.textContent).to.equal('123');
   });
 });
+
+
+// expect(foo).to.be.a('string');
+describe('serializePosition() and deserializePosition()', function() {
+  it('should de-/serialize a position: throw error if not ending in a textnode', function() {
+    $('#testContainer').append(
+      '<div id="root">' +
+        '<div></div>' +
+        '<span class="myClass"></span>' +
+        '<div>' +
+          '<h1 id="target">' +
+            '<span class="myClass">' +
+              'Text'
+            '</span>' +
+          '</h1>' +
+        '</div>' +
+      '</div>'
+    );
+
+    console.log($('#target')[0]);
+
+  });
+});
