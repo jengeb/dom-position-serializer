@@ -408,9 +408,10 @@ describe('serializePosition() and deserializePosition() (position is not a textn
       '</div>'
     );
 
+    // http://stackoverflow.com/a/22340179/4419582
     expect(function(){serializePosition($('#target')[0], 0, $('#root')[0], 'myClass')}).to.throw('Input node is not a text node.');
 
-    // http://stackoverflow.com/a/22340179/4419582
-    //expect(function(){deserializePosition(position, $('#root')[0], 'myClass')}).to.throw('Found node is not a text node.');
+    var element = {path: [2, 0], offset: 0};
+    expect(function(){deserializePosition(element, $('#root')[0], 'myClass')}).to.throw('Found node is not a text node.');
   });
 });
