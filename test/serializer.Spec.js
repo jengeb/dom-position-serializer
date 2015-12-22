@@ -404,7 +404,7 @@ describe('serializePosition() and deserializePosition()', function() {
 
 
 describe('serializePosition() and deserializePosition()', function() {
-  it('should de-/serialize a position: node with <br> tag', function() {
+  it('should de-/serialize a position: node with <br> tag and whitespace', function() {
     $('#testContainer').append(
       '<div id="root">' +
         '<p id="target">' +
