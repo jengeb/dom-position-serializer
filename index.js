@@ -103,9 +103,9 @@ function deserializePosition(position, rootNode, className) {
     node = node.firstChild;
     var stepsRight = path[i];
     while (stepsRight > 0) {
-      node = node.nextSibling;
       skipResult = skip(node);
       node = skipResult.node;
+      node = node.nextSibling;
       stepsRight--;
     }
   }

@@ -401,3 +401,30 @@ describe('serializePosition() and deserializePosition()', function() {
     expect(result.node).to.equal($('#target')[0].firstChild.nextSibling);
   })
 });
+
+
+describe('serializePosition() and deserializePosition()', function() {
+  it('should de-/serialize a position: node with <br> tag', function() {
+    $('#testContainer').append(
+      '<div id="root">' +
+        '<p id="target">' +
+          '<span class="myClass">' +
+            'test' +
+          '</span>' +
+          ' <br> ' +
+          'example' +
+        '</p>' +
+      '</div>'
+    );
+    // serialization
+    // select text node 'example'
+    var pos = serializePosition($('#target')[0].firstChild.nextSibling.nextSibling.nextSibling, 1, $('#root')[0], 'myClass');
+    expect(pos.path).to.deep.equal([0, 2]);
+    expect(pos.offset).to.equal(1);
+
+    // deserialization
+    var result = deserializePosition(pos, $('#root')[0], 'myClass');
+    expect(result.offset).to.equal(1);
+    expect(result.node).to.equal($('#target')[0].firstChild.nextSibling.nextSibling.nextSibling);
+  });
+});
