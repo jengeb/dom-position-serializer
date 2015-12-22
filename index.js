@@ -83,10 +83,10 @@ function deserializePosition(position, rootNode, className) {
             getType(node.nextSibling) === 'inserted') &&
            (offset === undefined || offset >= getNodeLength(node))
           ) {
-      node = node.nextSibling;
       if (offset !== undefined) {
         offset -= getNodeLength(node);
       }
+      node = node.nextSibling;
     }
     return {node: node, offset: offset};
   }

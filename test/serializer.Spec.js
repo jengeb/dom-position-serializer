@@ -81,6 +81,28 @@ describe('serializePosition()', function() {
 });
 
 
+describe('serializePosition()', function() {
+  it('should serialize a position 2', function() {
+    $('#testContainer').append(
+      '<div id="root">' +
+        '<p id="target">' +
+          '<span class="myClass">Test</span> text example' +
+        '</p>' +
+      '</div>'
+    );
+
+    var pos = serializePosition($('#target')[0].firstChild.nextSibling, 1, $('#root')[0], 'myClass');
+    expect(pos.path).to.deep.equal([0, 0]);
+    expect(pos.offset).to.equal(5);
+
+    var result = deserializePosition(pos, $('#root')[0], 'myClass');
+    expect(result.offset).to.equal(1);
+    expect(result.node).to.equal($('#target')[0].firstChild.nextSibling);
+  })
+});
+
+
+
 // deserializePosition()
 describe('deserializePosition()', function() {
   it('should deserialize a position', function() {
