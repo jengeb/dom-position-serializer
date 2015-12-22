@@ -31,10 +31,6 @@ function serializePosition(node, offset, rootNode, className) {
     }
   }
 
-  if (getType(node) !== 'text') {
-    throw new Error('Input node is not a text node.');
-  }
-
   if (getType(node.parentNode) === 'inserted') {
     node = node.parentNode;
   }
@@ -44,7 +40,7 @@ function serializePosition(node, offset, rootNode, className) {
   node = skipResult.node;
   offset = skipResult.offset;
 
-  // result node: TODO path to rootnode
+  // result node: path to rootnode
   var path = [];
   while (node && node != rootNode) { // walk upwards in tree
     var count = 0;
@@ -119,9 +115,6 @@ function deserializePosition(position, rootNode, className) {
 
   if (getType(node) === 'inserted') {
     node = node.firstChild;
-  }
-  if (getType(node) !== 'text') {
-    throw new Error('Found node is not a text node.');
   }
 
   return {node: node, offset: offset};
