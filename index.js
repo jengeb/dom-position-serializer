@@ -1,5 +1,17 @@
 'use strict';
 
+// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
+function escapeRegExp(string){
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// rewrite jQuery's hasClass with pure JavaScript
+// http://stackoverflow.com/a/5085587/4419582
+function hasClass(elem, className) {
+  var re = new RegExp('\\b' + escapeRegExp(className) + '\\b');
+  return re.test(elem.className);
+}
+
 function serializePosition(node, offset, rootNode, className) {
 
   function skip(node, offset) {
@@ -26,7 +38,7 @@ function serializePosition(node, offset, rootNode, className) {
     if (node.nodeType === node.TEXT_NODE) {
       return 'text';
     }
-    if ($(node).hasClass(className)) {
+    if (hasClass(node, className)) {
       return 'inserted';
     }
   }
@@ -91,7 +103,7 @@ function deserializePosition(position, rootNode, className) {
     if (node.nodeType === node.TEXT_NODE) {
       return 'text';
     }
-    if ($(node).hasClass(className)) {
+    if (hasClass(node, className)) {
       return 'inserted';
     }
   }

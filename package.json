@@ -1,6 +1,6 @@
 {
   "name": "dom-position-serializer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "serialize and deserialize a position in the DOM",
   "main": "index.js",
   "scripts": {
@@ -32,9 +32,7 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.3.4",
     "phantomjs": "^1.9.19",
-    "should": "^8.0.1"
-  },
-  "dependencies": {
+    "should": "^8.0.1",
     "jquery": "^2.1.4"
   }
 }
