@@ -5,7 +5,7 @@ This module de-/serializes a position in the HTML document. This is particularly
  * you want to store and retrieve a position in the DOM tree
  * you want to ignore changes you make or made in the DOM, e.g., by adding HTML elements with a special CSS class
 
-A position consists of a element and a character offset in this element. The serialization of a position is a path in the DOM tree (with respect to a root node) and the offset. The computed path is an array of zero-based indexes that determine the respective element in the list of child elements.
+A position consists of an element and a character offset in this element. The serialization of a position is a path in the DOM tree (with respect to a root node) and the offset. The computed path is an array of zero-based indexes that determine the respective element in the list of child elements.
 
 If you intend to add elements to the DOM (e.g., for highlighting text), this module is able to compute serializations with respect to the original DOM, see below.
 
@@ -44,14 +44,14 @@ More examples for this module can be found in the tests, see `/test/serializer.S
 ## `serializePosition (node, offset, rootNode, className)`
 
 ### Input
-The function to serialize a position accepts the following input parameters.
+The function to serialize a position accepts the following input parameters:
 * `node` (element): the node in the DOM tree that should be serialized
 * `offset` (integer): the character offset inside the node
 * `rootNode` (element): the root node of the HTML document, e.g., `document.body`
 * `className` (string, optional): the name of the CSS class
 
 ### Functionality
-Element nodes with the specified class will be subtracted from the determination of the position. For serializing a selected text range you have to call the function for the start as well as for the end position. `serializePosition` starts with the specified `node` and traverses the DOM tree until reaching the defined `rootNode`. The function computes the path from the specified `rootNode` to the `node` by subtracting all element nodes with the specified class if passed to the function. If the function encounters such a node it will look at the child nodes and include them into the determination of `path` and `offset`. 
+Element nodes with the specified class will be subtracted from the determination of the position. For serializing a selected text range you have to call the function for the start as well as for the end position. `serializePosition` starts with the specified `node` and traverses the DOM tree until reaching the defined `rootNode`. The function computes the path from the specified `rootNode` to the `node` by subtracting all element nodes with the specified class if passed to the function. If the function encounters a node with `className` it will look at the child nodes and include them into the determination of `path` and `offset`. 
 
 ### Output
 The function returns an object with the following properties with respect to the *unmodified* DOM tree:
@@ -61,7 +61,7 @@ The function returns an object with the following properties with respect to the
 ## `deserializePosition (position, rootNode, className)`
 
 ### Input
-The function accepts the following input parameters.
+The function accepts the following input parameters:
 * `position` (object with properties `path` and `offset`): the position that should be deserialized, e.g., output of `serializePosition`
 * `rootNode`: see `serializePosition`
 * `className` (optional): see `serializePosition`
