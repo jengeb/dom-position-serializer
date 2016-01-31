@@ -78,7 +78,7 @@ function deserializePosition(position, rootNode, className) {
     if (getType(node) === 'text') {
       return node.length;
     }
-    else if (getType(node) === 'inserted') {
+    if (getType(node) === 'inserted') {
       return node.innerText.length;
     }
   }
@@ -100,6 +100,9 @@ function deserializePosition(position, rootNode, className) {
   }
 
   function getType(node) {
+    if (!node) {
+      throw new Error('Node is null.');
+    }
     if (node.nodeType === node.TEXT_NODE) {
       return 'text';
     }

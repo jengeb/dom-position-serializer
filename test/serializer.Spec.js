@@ -428,3 +428,24 @@ describe('serializePosition() and deserializePosition()', function() {
     expect(result.node).to.equal($('#target')[0].firstChild.nextSibling.nextSibling.nextSibling);
   });
 });
+
+
+describe('deserializePosition() (node is null)', function() {
+  it('should throw an error because input node is null resp. path does not exist', function() {
+    $('#testContainer').append(
+      '<div id="root">' +
+        '<p id="target">' +
+          '<span class="myClass">' +
+            'test' +
+          '</span>' +
+          ' <br> ' +
+          'example' +
+        '</p>' +
+      '</div>'
+    );
+
+  // http://stackoverflow.com/a/22340179/4419582
+  var element = {path: [7, 4, 1], offset: 3};
+  expect(function() {deserializePosition(element, $('#root')[0], 'myClass')}).to.throw('Node is null.');
+  });
+});
