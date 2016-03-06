@@ -18,7 +18,7 @@
     "skip"
   ],
   "author": "Jennifer Gebske <jennifer@gebske.de>",
-  "license": "GPL",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/jengeb/dom-position-serializer/issues"
   },
