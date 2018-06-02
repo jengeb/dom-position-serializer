@@ -1,4 +1,4 @@
-# DOM position serializer [![Build Status](https://travis-ci.org/jengeb/dom-position-serializer.svg)](https://travis-ci.org/jengeb/dom-position-serializer)
+# DOM position serializer [![Build Status](https://travis-ci.org/jengeb/dom-position-serializer.svg)](https://travis-ci.org/jengeb/dom-position-serializer) [![Greenkeeper badge](https://badges.greenkeeper.io/jengeb/dom-position-serializer.svg)](https://greenkeeper.io/)
 
 This module de-/serializes a position in the HTML document. This is particularly useful in the following situations:
 
