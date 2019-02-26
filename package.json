@@ -24,15 +24,15 @@
   },
   "homepage": "https://github.com/jengeb/dom-position-serializer#readme",
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "jquery": "^3.3.1",
-    "karma": "^2.0.0",
+    "karma": "^4.0.0",
     "karma-chai": "^0.1.0",
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
-    "mocha": "^5.0.0",
+    "mocha": "^6.0.2",
     "phantomjs": "^2.1.7",
-    "should": "^13.2.1"
+    "should": "^13.2.3"
   }
 }
