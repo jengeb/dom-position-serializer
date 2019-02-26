@@ -1,6 +1,6 @@
 {
   "name": "dom-position-serializer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "serialize and deserialize a position in the DOM",
   "main": "index.js",
   "scripts": {
